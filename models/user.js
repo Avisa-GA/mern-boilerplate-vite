@@ -1,5 +1,5 @@
-const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
+import mongoose from 'mongoose';
+import bcrypt from 'bcrypt';
 
 const SALT_ROUNDS = 6;
 
@@ -54,4 +54,4 @@ userSchema.methods.comparePassword = function(tryPassword, cb) {
   });
 };
 
-module.exports = mongoose.model('User', userSchema);
+export default mongoose.model('User', userSchema);

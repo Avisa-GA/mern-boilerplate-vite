@@ -1,11 +1,14 @@
-const User = require('../models/user');
-const jwt = require('jsonwebtoken');
+import User from '../models/user.js'
+import jwt from 'jsonwebtoken'
 const SECRET = process.env.SECRET;
 
-module.exports = {
+
+
+export default {
   signup,
   login
 };
+
 
 async function signup(req, res) {
   const user = new User(req.body);
@@ -48,3 +51,5 @@ function createJWT(user) {
     {expiresIn: '24h'}
   );
 }
+
+

@@ -1,33 +1,42 @@
-require('dotenv').config();
-const express = require('express');
-const path = require('path');
-const logger = require('morgan');
-const favicon = require('serve-favicon');
 
-require('./config/database');
+import * as dotenv from 'dotenv' // see https://github.com/motdotla/dotenv#how-do-i-use-dotenv-with-import
+dotenv.config()
+import express from 'express'
+import path, {dirname} from 'path';
+import logger from 'morgan';
+import favicon  from 'serve-favicon';
+
+import './config/database.js'
 
 // Require controllers here
 
 const app = express();
-
+import assetsRouter from './server/assets-router.js'
+// console.log(assetsRouter)
 // add in when the app is ready to be deployed
 // app.use(favicon(path.join(__dirname, 'build', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(express.json());
-app.use(express.static(path.join(__dirname, 'build')));
+// app.use("/src", assetsRouter);
 // Configure the auth middleware
 // This decodes the jwt token, and assigns
 // the user information to req.user
-app.use(require('./config/auth')); 
+import auth from './config/auth.js'
+
+app.use(auth); 
 // api routes must be before the "catch all" route
-app.use('/api/users', require('./routes/api/users'));
+import userRoutes from './routes/api/users.js';
+
+app.use('/api/users', userRoutes);
 // "catch all" route
 app.get('/*', function(req, res) {
-  res.sendFile(path.join(__dirname, 'build', 'index.html'));
+  // res.sendFile(path.join(dirname, 'build', 'index.html'));
 });
 
-const port = process.env.PORT || 3001;
-
-app.listen(port, function() {
-  console.log(`Express app listening on port ${port}`);
+const { PORT = 5000 } = process.env;
+app.listen(PORT, () => {
+  console.log();
+  console.log(`  App running in port ${PORT}`);
+  console.log();
+  console.log(`  > Local: \x1b[36mhttp://localhost:\x1b[1m${PORT}/\x1b[0m`);
 });

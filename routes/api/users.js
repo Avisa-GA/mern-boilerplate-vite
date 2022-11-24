@@ -1,6 +1,6 @@
-const express = require('express');
+import express from 'express';
 const router = express.Router();
-const usersCtrl = require('../../controllers/users');
+import usersCtrl  from '../../controllers/users.js';
 
 /*---------- Public Routes ----------*/
 router.post('/signup', usersCtrl.signup);
@@ -12,4 +12,4 @@ router.post('/login', usersCtrl.login);
 
 
 
-module.exports = router;
+export default router;
