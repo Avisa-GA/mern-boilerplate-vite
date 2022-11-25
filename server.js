@@ -2,7 +2,10 @@
 import * as dotenv from 'dotenv' // see https://github.com/motdotla/dotenv#how-do-i-use-dotenv-with-import
 dotenv.config()
 import express from 'express'
-import path, {dirname} from 'path';
+import { fileURLToPath } from 'url'
+import path, { dirname } from 'path'
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = dirname(__filename)
 import logger from 'morgan';
 import favicon  from 'serve-favicon';
 
@@ -30,7 +33,7 @@ import userRoutes from './routes/api/users.js';
 app.use('/api/users', userRoutes);
 // "catch all" route
 app.get('/*', function(req, res) {
-  // res.sendFile(path.join(dirname, 'build', 'index.html'));
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 const { PORT = 5000 } = process.env;
