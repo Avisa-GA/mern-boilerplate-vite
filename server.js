@@ -12,9 +12,8 @@ import favicon  from 'serve-favicon';
 import './config/database.js'
 
 // Require controllers here
-
 const app = express();
-import assetsRouter from './server/assets-router.js'
+
 // console.log(assetsRouter)
 // add in when the app is ready to be deployed
 // app.use(favicon(path.join(__dirname, 'build', 'favicon.ico')));
